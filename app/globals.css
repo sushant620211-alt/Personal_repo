@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS CUSTOM PROPERTIES ── */
+:root {
+  --clr-primary: #c0404e;
+  --clr-primary-light: #e8798a;
+  --clr-primary-dark: #8b2233;
+  --clr-gold: #c9932a;
+  --clr-gold-light: #f0c96e;
+  --clr-shadow: rgba(192, 64, 78, 0.12);
+}
+
+.dark {
+  --clr-primary: #e8798a;
+  --clr-primary-light: #f0a0ae;
+  --clr-primary-dark: #c0404e;
+  --clr-gold: #f0c96e;
+  --clr-gold-light: #fde8a8;
+  --clr-shadow: rgba(232, 121, 138, 0.15);
+}
+
+/* ── BASE ── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Nunito', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── PHOTO PROTECTION ── */
+.photo-protected {
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+.photo-shield {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  cursor: default;
+  background: transparent;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes spin-ring {
+  to { transform: rotate(360deg); }
+}
+@keyframes spin-orbit {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(192, 64, 78, 0.3); }
+  50%       { box-shadow: 0 0 0 12px rgba(192, 64, 78, 0); }
+}
+
+.animate-ring       { animation: spin-ring  8s linear infinite; }
+.animate-orbit      { animation: spin-orbit 60s linear infinite; }
+.animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+
+.fade-up { animation: fade-up 0.7s ease both; }
+.fade-up-delay-1 { animation-delay: 0.1s; }
+.fade-up-delay-2 { animation-delay: 0.2s; }
+.fade-up-delay-3 { animation-delay: 0.3s; }
+.fade-up-delay-4 { animation-delay: 0.4s; }
+
+/* Intersection observer driven */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── GRADIENT TEXT ── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--clr-primary), var(--clr-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── CARD HOVER LIFT ── */
+.card-lift {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px var(--clr-shadow);
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--clr-primary-light); border-radius: 99px; }
+
+/* ── FORM FOCUS ── */
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--clr-primary);
+  box-shadow: 0 0 0 3px rgba(192, 64, 78, 0.12);
+}
+
+/* ── PRINT DISABLE ── */
+@media print {
+  body { display: none !important; }
+}
